@@ -1,1 +1,164 @@
 <h1>  day 1 to day 4 what i learn </h1>
+
+for authentication 
+in  control node geneate the ssh-key and copy the id-rsa.pub this key is public key paste it in manage node in authoraziation_key
+
+after this add this command 
+if ubuntu
+ssh-copy-id -f "-o IdentityFile <PATH TO PEM FILE>" ubuntu@<INSTANCE-PUBLIC-IP>
+
+it add up the also gives on ssh cmd run that that will help to login the ec2 without asking the ssh-key for the next time
+or do this
+ssh ubuntu@<ip adress> in the case of ubuntu vm
+
+also check for config here add if not adaddes ~/.ssh/id_rsa //in config
+
+day 2
+Creation of palybook or adding up the host doing some task
+ lets here will check the host is working or not
+
+add the ip adress to the host 
+first we have to create path for that
+                        apt-add-repository ppa:ansible/ansible
+run this command this will create path in that path this includes the ansible
+in ansible create hosts file if there add the ip adresss
+
+ubuntu@<ip adrere>
+like this how much manage node are that much 
+
+or 
+you can add separetly 
+[db]
+ubuntu@<ip-adresss>
+[all]
+ubuntu@<ip-adresss>
+[server]
+ubuntu@<ip-adresss>
+
+to check its working 
+ansible -m ping all  //for all instance
+ansible -m ping db   // for db instance only
+
+to check how many host are there in control node
+
+ansible all --list-hosts  
+
+day 3 and day 4
+creation of playbook 
+in the playbook we have plays and task playbook its a yaml file ans it's always end with .yaml
+
+---
+- name: Install JDK on Ubuntu
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update apt package index
+      apt:
+        update_cache: yes
+
+    - name: Install OpenJDK 11
+      apt:
+        name: openjdk-11-jdk
+        state: present
+
+    - name: Verify JDK installation
+      command: java -version
+      register: java_version
+      ignore_errors: yes
+
+    - name: Display JDK version
+      debug:
+        msg: "Installed JDK version: {{ java_version.stderr_lines | join(' ') }}"
+
+
+this is simple playbook to install java through control vm (laptop)
+
+run this command to execute the programm
+ansible-playbook -i hosts playbook.yaml  /hosts is ths path ,. and playbook.yaml is my playbook  
+
+
+day 4 adding up the role
+
+ansible-galaxy role init test 
+
+ansible-galaxy role init test // to create new role here test is my role name you can give as per tou want
+
+here diffrent folder will create total 8 new folder will create
+roles/
+  my_new_role/
+    defaults/
+      main.yml
+    files/
+      example.conf
+    handlers/
+      main.yml
+    meta/
+      main.yml
+    tasks/
+      main.yml
+    templates/
+      example.conf.j2
+    tests/
+      test.yml
+      inventory
+    vars/
+      main.yml
+    README.md
+    LICENSE 
+
+like this  
+here we have add roles tasks handlers why because od improve the readabilty and madularity if we keep on adding somethong to playbokk its looks wierd
+
+so we add differst task to the roles
+here the playbookk will also change we add the path to playbook where the tasks are there thats the importent things 
+
+always be careful about path and what inside the palybook path else it may causes error in the sensce
+
+here we adding to roles for both task and to the handler
+before adding to tasks and handler we add the roels to palybook
+
+path is /etc/ansible   >> come here and execute always because here only you create the role 
+# playbook.yaml  //in playbook.yaml
+---
+- name: Deploy and configure servers
+  hosts: all
+  become: yes
+  roles:
+    - my_new_role  //here give the patha what did you gave when your creaion path (ansible-galaxy init role (role name)
+ 
+(role name is the path here give it coorectly)
+
+
+here we add the task in main.yml ( in the task folder main file)
+
+# roles/my_new_role/tasks/main.yml
+---
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+  notify:
+    - start nginx
+
+here we add the handler in main.yml ( in the handler folder main file)
+# roles/my_new_role/handlers/main.yml
+---
+- name: start nginx
+  systemd:
+    name: nginx
+    state: started
+    enabled: yes
+everthing is done here also nginx will insatll go check in manage node
+cmd this in mng node
+ 
+nginx -v
+
+here day 1 to 4 is ends
+
+
+
+
+
+
+
+
