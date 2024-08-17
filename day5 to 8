@@ -24,7 +24,7 @@ create vault for authenitcain we can use as local user here we directly talk wit
     image_id: ami-04b70fa74e45c3917
 
 
-  this is the playbook.yaml here we the ansible collection
+  this is the playbook.yaml here we use the ansible collection
 
   host will be provided
 
