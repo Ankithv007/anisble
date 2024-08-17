@@ -5,9 +5,10 @@ this is the web for role
 day  6
 create vault for authenitcain we can use as local user here we directly talk with aws with help of authentication help of IAM user
 
- after creating the playbook.yaml
+ 
+
  ---
-# tasks file for ec2
+ tasks file for ec2
 - name: start an instance with a pu
   amazon.aws.ec2_instance:
     name: "ansible-instance"
