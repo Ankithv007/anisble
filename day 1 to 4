@@ -7,6 +7,8 @@ after this add this command
 if ubuntu
 ssh-copy-id -f "-o IdentityFile <PATH TO PEM FILE>" ubuntu@<INSTANCE-PUBLIC-IP>
 
+ssh-copy-id -f "-o IdentityFile ~/Downloads/key_pair.pem" ubuntu@3.110.92.46  //example
+
 it add up the also gives on ssh cmd run that that will help to login the ec2 without asking the ssh-key for the next time
 or do this
 ssh ubuntu@<ip adress> in the case of ubuntu vm
