@@ -3,7 +3,6 @@
 <h5> add the host to host file else connect through api help of ami aws configure </h5>
 <h5> it's helps in whether the docker is installed and open ssh and ssl are present in the ec2</h5>
 
-
 ---
 - hosts: all
   become: true
@@ -28,4 +27,3 @@
         name: docker.io
         state: present
       when: output.failed
-        
