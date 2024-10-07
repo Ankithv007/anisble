@@ -22,7 +22,7 @@ Hint: Use `when` condition on ansible `gather_facts`
 <h5> this is script is for create the instance </h5>
 <h5> change the ami id and vault pass as per we provide /h5>
 
-
+```
 ---
 - hosts: localhost
   connection: local
@@ -46,10 +46,10 @@ Hint: Use `when` condition on ansible `gather_facts`
       - { image: "ami-0e1d06225679bc1c5", name: "manage-node-1" } # Update AMI ID according 
       - { image: "ami-0f58b397bc5c1f2e8", name: "manage-node-2" } # to your account
       - { image: "ami-0f58b397bc5c1f2e8", name: "manage-node-3" }
-
-
+```
   <h4> to delete (shutdown) the instance by using there  ubuntu_family </h4>
 
+```
   ---
 - hosts: all
   become: true
@@ -60,9 +60,10 @@ Hint: Use `when` condition on ansible `gather_facts`
       when:
        ansible_facts['os_family'] == "Debian"
 
-
+```
 <h4> by proving there ami id shudowning the insatces</h4>
 
+```
 ---
 - name: Delete AWS EC2 Instances by AMI ID
   hosts: localhost
@@ -92,4 +93,4 @@ Hint: Use `when` condition on ansible `gather_facts`
       debug:
         var: termination_results
 
-      
+```      
