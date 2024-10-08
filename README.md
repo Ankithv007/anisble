@@ -1,4 +1,4 @@
-# Ansible Zero to Hero
+# Ansible 
 
 Day 1: Introduction to Ansible and Getting Started
 
@@ -54,3 +54,11 @@ Day 8: Error Handling in Ansible
 - Dealing with errors and failures in Ansible playbooks.
 - Error handling techniques and best practices.
 - Demonstrating error handling in practical scenarios.
+
+Day 9: Ansible Vault for Security
+
+- Understanding Ansible Vault and its role in securing sensitive data.
+- Encrypting and decrypting files using Ansible Vault.
+- Best practices for managing secrets and sensitive data in Ansible.
+
+Day 10: Policy as Code
