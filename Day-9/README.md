@@ -11,8 +11,7 @@ This is a subcommand of openssl that generates pseudo-random bytes. In this cont
 This flag specifies that the output should be encoded in base64 format. Base64 encoding is a way of converting binary data into an ASCII string using a specific character set. It’s useful for encoding binary data so it can be easily stored or transmitted over text-based protocols.
 - 2048:
 This parameter indicates the number of random bytes to generate. In this case, 2048 bytes of random data will be generated. When encoded in base64, this will result in a longer string (approximately 2736 characters), as base64 encoding expands the size of the data.
-- >:
-This is a redirection operator in the shell that directs the output of the command to a file instead of displaying it in the terminal.
+-  >:This is a redirection operator in the shell that directs the output of the command to a file instead of displaying it in the terminal.
 - vault.pass:
 This is the name of the file where the generated random base64 string will be saved. In this case, it’s being used as a password file for Ansible Vault.
 
@@ -31,15 +30,18 @@ ansible-vault create group_vars/all/pass.yml --vault-password-file ../../vault.p
 ansible-vault create my_secret.yml --vault-password-file vault.pass
 ```
 
-1.ansible-vault create:
+✅ ansible-vault create:
 - This is an Ansible Vault command used to create a new encrypted file.
 - When you use this command, Ansible Vault opens a text editor (usually vim or the editor set in your environment) where you can enter the content that you want to encrypt. Once you save and exit the editor, the content is saved and encrypted in the specified file.
-2.group_vars/all/pass.yml:
+
+✅ group_vars/all/pass.yml:
 - This specifies the path and name of the file that you want to create and encrypt.
 - group_vars/ is a special directory in Ansible where you can define variables that apply to specific groups of hosts.
 - all/ is a subdirectory that means the variables inside it apply to all hosts in the inventory.
-3.pass.yml is the file being created. This file will be encrypted using Ansible Vault.
-4.--vault-password-file vault.pass:
+
+✅pass.yml is the file being created. This file will be encrypted using Ansible Vault.
+
+✅--vault-password-file vault.pass:
 - This flag specifies the path to a file (vault.pass) that contains the password used to encrypt/decrypt the file (pass.yml).
 - Using --vault-password-file helps you automate the encryption and decryption process without needing to enter the password interactively each time. This is useful for running playbooks or tasks in an automated pipeline.
 
