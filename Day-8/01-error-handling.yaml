@@ -1,0 +1,27 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Install security updates
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - openssl
+        - openssh
+      ignore_errors: yes             ### here we handing the errors 
+
+    - name: Check if docker is installed
+      ansible.builtin.command: docker --version
+      register: output                         ### adding the variable to store the output we use this latter (variable use when this task fails 
+      ignore_errors: yes                         ### if the previous task fails with help this output we can  pass the output  it next task  
+
+    - ansible.builtin.debug:        ### this is for debug delete if you want after
+        var: output
+
+    - name: Install docker        
+      ansible.builtin.apt:
+        name: docker.io
+        state: present
+      when: output.failed            ### if the  previous task fails here we use that and insatlled the docker if the docker is not available 
