@@ -156,3 +156,29 @@ ansible-playbook -i inventory.ini ec2-stop.yaml --vault-password-file vault.pass
 ansible-galaxy role init ec2
 
 ```
+
+### after the creation you have connect with pass-wordless authentication  (Day -2 ) your rsa_pub to created vm auth_key add
+- than create invnetory.ini add you just created ec2 instance ip to there
+```
+---
+- hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Terminate Ubuntu EC2 instances
+      ansible.builtin.command: aws ec2 terminate-instances --instance-ids {{ ansible_ec2_instance_id }}
+      when: ansible_facts['ansible_distribution'] == "Ubuntu"
+
+```
+- now add create inventory.ini
+```
+ubuntu@<your ip  adress>
+ubuntu2<your ip adress>
+ec2-user@<ip-adress>
+```
+- command
+```
+ansible-playbook -i inventory.ini < yur playbook name delete.yaml> --vault-password-file vault.pass
+
+```
