@@ -1,0 +1,36 @@
+---
+# Play 1
+- name: Play 1 - Install Apache and configure web server
+  hosts: webservers  # Target group for this play
+  become: true       # Use privilege escalation
+  tasks:
+    - name: Install Apache
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+        update_cache: yes
+
+    - name: Copy index.html to web server
+      ansible.builtin.copy:
+        src: index.html
+        dest: /var/www/html
+        owner: root
+        group: root
+        mode: '0644'
+
+# Play 2
+- name: Play 2 - Install MySQL server
+  hosts: dbservers  # Different target group for this play
+  become: true      # Use privilege escalation
+  tasks:
+    - name: Install MySQL
+      ansible.builtin.apt:
+        name: mysql-server
+        state: present
+        update_cache: yes
+
+    - name: Ensure MySQL is running
+      ansible.builtin.service:
+        name: mysql
+        state: started
+        enabled: true
