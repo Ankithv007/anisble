@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Terminate Ubuntu EC2 instances
+      ansible.builtin.command: aws ec2 terminate-instances --instance-ids {{ ansible_ec2_instance_id }}
+      when: ansible_facts['ansible_distribution'] == "Ubuntu"
